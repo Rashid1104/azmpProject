@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+     * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .headH2 {
+            font-size: 2rem;
+            color: #3563E9;
+        }
+
+        .text {
+            width: 300px;
+            height: 40px;
+            border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: none;
+            border-radius: 5px;
+            padding: 0 10px;
+        }
+ .search-Btn {
+    position: fixed; 
+    left: 36.8%;
+    width: 50px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+    z-index: 1000; 
+    transition: all 0ş6s ease;
+    opacity: 1; 
+    
+}
+.search-Btn.hidden {
+    opacity: 0; 
+    pointer-events: none; 
+}
+#searchButton{
+    font-size: 20px;
+    opacity: 0.5;
+}
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1rem;
+            color: #333333;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        .img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .btn{
+        width: 90%;
+      padding: 10px;
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer; 
+    }
+    .delete-btn{
+      background: #ff0d0d;
+    }
+    .edit-btn{
+      background: #0dff56;
+    }
+    .details-btn{
+      background: #106efc;
+    }
+    .companies-h1{
+        text-align: center;
+        font-size: 3rem;
+        padding: 40px 0;
+    }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { 
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 0.5px solid #ddd; 
+            padding: 20px; 
+            text-align: left; }
+        th { background-color: #000000; color: #fff;}
+        td { background-color: #000000; color: #fff;}
+</style>
+<body>
+    <header id="header">
+        <div class="left">
+            <h2 class="headH2">MORENT</h2>
+           <input class="text"  id="searchInput" type="text"  placeholder="Search something here"> 
+           <button class="search-Btn"><i class="fa-solid fa-magnifying-glass" id="searchButton"> </i></button>
+        </div>
+        <div class="right">
+            <button class="icon heart"><i class="fa-solid fa-heart"></i><sup class="sayin">0</sup>   
+            </button>
+            <button class="icon"><i class="fa-solid fa-bell" ></i></button>
+            <button class="icon"> <i class="fa-solid fa-gear"></i></button>          
+            <img src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg" alt="alien" class="img">
+        </div>
+    </header>
+    <h1 class="companies-h1">Companies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>location</th>
+                <th>industry</th>
+                <th>createdAt</th>
+                <th>website</th>
+                <th>DETAILS</th>
+                <th>EDIT</th> 
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tbody id="companyTableBody">
+
+        </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.min.js"
+    integrity="sha512-JCDnPKShC1tVU4pNu5mhCEt6KWmHf0XPojB0OILRMkr89Eq9BHeBP+54oUlsmj8R5oWqmJstG1QoY6HkkKeUAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', fetchAndRenderCompanies);
+
+function fetchAndRenderCompanies() {
+    fetch('http://localhost:3000/companies')
+        .then(response => response.json())
+        .then(data => renderTable(data))
+        .catch(error => console.error('Error fetching companies:', error));
+}
+
+function renderTable(data) {
+    const tableBody = document.getElementById('companyTableBody');
+    tableBody.innerHTML = data.map(company => `
+        <tr data-id="${company.id}">
+            <td>${company.name}</td>
+            <td>${company.location}</td>
+            <td>${company.industry}</td>
+            <td>${new Date(company.createdAt).toLocaleDateString()}</td>
+            <td><a href="${company.website}" target="_blank">${company.website}</a></td>
+            <td><button class="details-btn btn" onclick="showDetails(${company.id})">DETAILS</button></td>
+            <td><button class="edit-btn btn" onclick="editCompany(${company.id})">EDIT</button></td>
+            <td><button class="delete-btn btn" onclick="deleteCompany(${company.id})">DELETE</button></td>
+        </tr>
+    `).join('');
+}
+
+function deleteCompany(companyId) {
+    Swal.fire({
+        title: 'Are you sure you want to delete this company?',
+        text: "This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:3000/companies/${companyId}`, { method: 'DELETE' })
+                .then(() => {
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'The company has been deleted.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    fetchAndRenderCompanies(); 
+                })
+                .catch(error => {
+                    console.error('Error deleting company:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to delete the company. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        }
+    });
+}
+
+document.body.addEventListener("click", (e) => {
+    if (e.target.closest(".edit-btn")) {
+        const companyId = parseInt(e.target.closest("tr").dataset.id);
+        const company = companies.find(c => c.id === companyId);
+
+        Swal.fire({
+            title: 'Edit Company',
+            html: `
+              <div class="edit-company">
+                  <div class="name">
+                      <label for="name">Name</label>
+                      <input type="text" id="name" value="${company.name}">
+                  </div>
+                  <div class="location">
+                      <label for="location">Location</label>
+                      <input type="text" id="location" value="${company.location}">
+                  </div>
+                  <div class="industry">
+                      <label for="industry">Industry</label>
+                      <select id="industry">
+                          <option value="IT" ${company.industry === "IT" ? 'selected' : ''}>IT</option>
+                          <option value="Marketing" ${company.industry === "Marketing" ? 'selected' : ''}>Marketing</option>
+                      </select>
+                  </div>
+                  <div class="website">
+                      <label for="website">Website</label>
+                      <input type="url" id="website" value="${company.website}">
+                  </div>
+              </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Save Changes',
+            cancelButtonText: 'Cancel',
+            preConfirm: () => {
+                const newName = document.getElementById("name").value;
+                const newLocation = document.getElementById("location").value;
+                const newIndustry = document.getElementById("industry").value;
+                const newWebsite = document.getElementById("website").value;
+
+                if (!newName || !newLocation || !newIndustry || !newWebsite) {
+                    Swal.showValidationMessage('All fields must be filled!');
+                    return false;
+                }
+
+                company.name = newName;
+                company.location = newLocation;
+                company.industry = newIndustry;
+                company.website = newWebsite;
+
+                return fetch(`http://localhost:3000/companies/${companyId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(company)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update company');
+                    }
+                }).catch(error => {
+                    Swal.showValidationMessage(`Error: ${error.message}`);
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Updated!',
+                    text: 'The company details have been updated.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                fetchAndRenderCompanies();
+            }
+        });
+    }
+});
+
+
+function showDetails(companyName) {
+    Swal.fire({
+        title: `Details for ${companyName}`,
+        text: 'Details functionality is not implemented yet.',
+        icon: 'info',
+        confirmButtonText: 'OK'
+    });
+}
+
+    </script>
+</body>
+</html>

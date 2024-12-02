@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+     * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .headH2 {
+            font-size: 2rem;
+            color: #3563E9;
+        }
+
+        .text {
+            width: 300px;
+            height: 40px;
+            border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: none;
+            border-radius: 5px;
+            padding: 0 10px;
+        }
+ .search-Btn {
+    position: fixed; 
+    left: 36.8%;
+    width: 50px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+    z-index: 1000; 
+    transition: all 0ş6s ease;
+    opacity: 1; 
+    
+}
+.search-Btn.hidden {
+    opacity: 0; 
+    pointer-events: none; 
+}
+#searchButton{
+    font-size: 20px;
+    opacity: 0.5;
+}
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1rem;
+            color: #333333;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        .img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { 
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: left; }
+        th { background-color: #000000; color: #fff;}
+        td { background-color: #000000; color: #fff;}
+</style>
+<body>
+    <header id="header">
+        <div class="left">
+            <h2 class="headH2">MORENT</h2>
+           <input class="text"  id="searchInput" type="text"  placeholder="Search something here"> 
+           <button class="search-Btn"><i class="fa-solid fa-magnifying-glass" id="searchButton"> </i></button>
+        </div>
+        <div class="right">
+            <button class="icon heart"><i class="fa-solid fa-heart"></i><sup class="sayin">0</sup>   
+            </button>
+            <button class="icon"><i class="fa-solid fa-bell" ></i></button>
+            <button class="icon"> <i class="fa-solid fa-gear"></i></button>          
+            <img src="./img/alien.png" alt="alien" class="img">
+        </div>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>location</th>
+                <th>industry</th>
+                <th>createdAt</th>
+                <th>website</th>
+                <th>DETAILS</th>
+                <th>EDIT</th> 
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tbody id="companyTableBody"></tbody>
+    </table>
+    <script>
+
+    </script>
+</body>
+</html>
